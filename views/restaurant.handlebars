@@ -4,16 +4,15 @@
             <div>
                 <img class="menu-image" src="{{restaurant.image}}">
                 <div>
-                    {{#each menu}}
-                        <p>{{this.title}}</p>
-                        {{#each items}}
-                            <p>{{items.name}}</p>
+                    {{#each restaurant.menus}}
+                        <h2>{{this.title}}</h2>
+                        {{#each this.items}}
+                            <p>{{this.name}} <br><b>£{{this.price}}</b></p>
                         {{/each}}
                     {{/each}}
 
                 </div>
-            </div>
-            
+            </div>          
         </div>
 </div>
 

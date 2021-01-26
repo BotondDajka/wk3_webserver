@@ -45,16 +45,12 @@ MenuItem.init({
 });
 
 
-Restaurant.hasMany(Menu, {foreignKey: "restaurantId"});
-Menu.belongsTo(Restaurant, {as: "owner", foreignKey: "restaurantId"});
-
-Menu.hasMany(MenuItem, {foreignKey: "menuId"});
-MenuItem.belongsTo(Menu, {as: "owner", foreignKey:"menuId"});
+Restaurant.hasMany(Menu, {as: 'menus', foreignKey: 'restaurantId'})
+Menu.belongsTo(Restaurant, {foreignKey: 'restaurantId'})
 
 
-
-
-
+Menu.hasMany(MenuItem, {as: 'items', foreignKey: 'menuId'});
+MenuItem.belongsTo(Menu, {foreignKey: 'menuId'});
 
 
 module.exports = { sequelize, DataTypes, Model, Restaurant, Menu, MenuItem }

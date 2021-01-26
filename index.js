@@ -35,44 +35,52 @@ app.get('/about', (request, response) => {
 })
 
 app.get('/restaurant/:restaurantId', async (request, response) => {
-    let restaurant;
-    let menu;
-    let items;
-
     await models.Restaurant.findOne({
         where:{
             id : request.params.restaurantId
-        }
-    }).then((_restaurant)=>{
-        restaurant = _restaurant;
+        },
+        include: [
+            {model: models.Menu, as: 'menus', 
+                include:[
+                    {model: models.MenuItem, as: 'items'},
+                ]
+    }   ],
+    }).then((restaurant)=>{
+        //console.log(restaurant.menus[0].items[1]);
+        response.render('restaurant', {title:`${restaurant.name}| Restaurants`, restaurant: restaurant})
+        //response.json(restaurant)
     })
     .catch((error)=>{
+        console.log(error);
         response.status(404).render('notfound', {title:"Error 404 | Page not found", layout: "notfound"})
     });
-
-    await models.Menu.findAll({
-        where:{
-            restaurantId : request.params.restaurantId
-        }
-    }).then((_menu)=>{
-        menu = _menu;
-    })
-    .catch((error)=>{
-        response.status(404).render('notfound', {title:"Error 404 | Page not found", layout: "notfound"})
-    });
-
-    await models.MenuItem.findAll()
-    .then((_items)=>{
-        items = _items;
-    })
-    .catch((error)=>{
-        response.status(404).render('notfound', {title:"Error 404 | Page not found", layout: "notfound"})
-    });
-
-    response.render('restaurant', {title:`${restaurant.name}| Restaurants`, restaurant: restaurant, menu: menu, items: items})
-
-    
 })
+
+app.get('/rest/restaurant/:restaurantId', async (request, response) => {
+    await models.Restaurant.findOne({
+        where:{
+            id : request.params.restaurantId
+        },
+        include: [
+            {model: models.Menu, as: 'menus', 
+                include:[
+                    {model: models.MenuItem, as: 'items'},
+                ]
+    }   ],
+    }).then((restaurant)=>{
+        //console.log(restaurant.menus[0].items[1]);
+        //response.render('restaurant', {title:`${restaurant.name}| Restaurants`, restaurant: restaurant})
+        response.json(restaurant)
+    })
+    .catch((error)=>{
+        console.log(error);
+        response.status(404).render('notfound', {title:"Error 404 | Page not found", layout: "notfound"})
+    });
+})
+
+
+
+
 
 
 
