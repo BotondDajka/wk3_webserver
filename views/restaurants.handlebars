@@ -1,0 +1,23 @@
+<h1 class="restaurants-title">Restaurants</h1>
+<div class="restaurants-cont">
+    {{#each restaurants}}
+        <div id="{{this.id}}" class="restaurants-items">
+            <div>
+                <p class="restaurants-name">{{this.name}}</p>
+                <img class="restaurants-image" src="{{this.image}}">
+            </div>
+            
+        </div>
+        <script>
+            document.getElementById("{{this.id}}").onclick = ()=>{
+                window.location.href = '/restaurant/{{this.id}}'
+            }
+            
+        </script>
+        {{!-- <div class="restaurants-items">1</div>
+        <div class="restaurants-items">1</div>
+        <div class="restaurants-items">1</div>
+        <div class="restaurants-items">1</div>
+        <div class="restaurants-items">1</div> --}}
+    {{/each}}
+</div>

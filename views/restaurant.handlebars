@@ -1,0 +1,19 @@
+<h1 class="menu-title">{{restaurant.name}}</h1>
+<div class="menu-cont">
+        <div class="menu-item">
+            <div>
+                <img class="menu-image" src="{{restaurant.image}}">
+                <div>
+                    {{#each menu}}
+                        <p>{{this.title}}</p>
+                        {{#each items}}
+                            <p>{{items.name}}</p>
+                        {{/each}}
+                    {{/each}}
+
+                </div>
+            </div>
+            
+        </div>
+</div>
+
