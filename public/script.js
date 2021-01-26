@@ -11,3 +11,10 @@ homeButton.onclick = ()=>{
 aboutButton.onclick = ()=>{
     window.location.href = '/about'
 }
+
+
+
+
+
+
+

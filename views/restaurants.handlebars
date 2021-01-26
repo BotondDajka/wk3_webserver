@@ -1,23 +1,71 @@
-<h1 class="restaurants-title">Restaurants</h1>
-<div class="restaurants-cont">
-    {{#each restaurants}}
-        <div id="{{this.id}}" class="restaurants-items">
-            <div>
-                <p class="restaurants-name">{{this.name}}</p>
-                <img class="restaurants-image" src="{{this.image}}">
+<div class="center">
+    <h1 class="restaurants-title">Restaurants</h1>
+    <div id="restaurants-cont" class="restaurants-cont">
+        {{#each restaurants}}
+            <div id="{{this.id}}" class="restaurants-items">
+                <div>
+                    <p class="restaurants-name">{{this.name}}</p>
+                    <img class="restaurants-image" src="{{this.image}}">
+                </div> 
             </div>
+            <script>
+                document.getElementById("{{this.id}}").onclick = ()=>{
+                    window.location.href = '/restaurant/{{this.id}}'
+                }    
+            </script>
+            {{!-- <div class="restaurants-items">1</div>
+            <div class="restaurants-items">1</div>
+            <div class="restaurants-items">1</div>
+            <div class="restaurants-items">1</div>
+            <div class="restaurants-items">1</div> --}}
+        {{/each}}
+
+        
+    </div>
+
+    <div class="tooltip" id="tooltip">Click for more info</div>
+
+
+    <script>
+        let mouseX, mouseY;
+        window.onmousemove = (e) => {
+            mouseX = e.clientX;
+            mouseY = e.clientY;
+
+            let tooltip = document.getElementById("tooltip");
+                tooltip.style.top = (mouseY - 50 + window.scrollY)+ "px";
+                tooltip.style.left = (mouseX + 10) + "px";
             
-        </div>
-        <script>
-            document.getElementById("{{this.id}}").onclick = ()=>{
-                window.location.href = '/restaurant/{{this.id}}'
+        };
+
+
+        let timers = [];
+        function mouseOver(state){
+            if (state){
+                let tooltip = document.getElementById("tooltip");
+                let timer = setTimeout(()=>{
+                    tooltip.style.opacity = 1;
+                }, 1000)
+                timers.push(timer);
             }
+            else{
+                let tooltip = document.getElementById("tooltip");
+                tooltip.style.opacity = 0;
+                timers.forEach((timer)=>{
+                    clearTimeout(timer);
+                })
+            }
+        }
+
+        let restaurants = document.getElementsByClassName("restaurants-items");
+        for (let i= 0; i < restaurants.length; i++){
             
-        </script>
-        {{!-- <div class="restaurants-items">1</div>
-        <div class="restaurants-items">1</div>
-        <div class="restaurants-items">1</div>
-        <div class="restaurants-items">1</div>
-        <div class="restaurants-items">1</div> --}}
-    {{/each}}
+            restaurants[i].onmouseover = () =>{
+                mouseOver(true)
+            }
+            restaurants[i].onmouseleave = () => {
+                mouseOver(false)
+            }
+        }
+    </script>
 </div>

@@ -6,15 +6,18 @@
 
 
 .navbar-cont{
-    position: relative;
-
+    position: fixed;
+    overflow: hidden;
     display: flex;
     justify-content: center;
     place-items: center;
+    left:0px;
+    top:0px;
 
     background-color: rgb(100, 100, 100);
     width: 100%;
     height: 50px;
+    z-index: 50;
 }
 
 .navbar-button{
@@ -34,7 +37,7 @@ body{
     background-color:rgb(55,55,55);
     color: white;
 	flex-direction:column;
-
+    overflow-y: scroll;
     font-family: "YuseiMagic", "YuseiMagic";
 }
 
@@ -42,13 +45,30 @@ body{
     position: relative;
     display: flex;
     justify-content: center;
-    
+    margin-top: 50px;
 
     width: 100%;
     height: 100%;
 }
 
 .center{
+    width: auto;
+    height: auto;
+    max-width: 1500px;
+
+    margin-top: 20px;
+
+    border: 10px solid transparent;
+    padding: 15px 20px 15px 20px;
+
+    border-image-slice:183 193 193 193;
+    border-image-width:50px 50px 50px 50px;
+    border-image-outset:0px 0px 0px 0px;
+    border-image-repeat:stretch stretch;
+    border-image-source: url(https://i.imgur.com/weNqMvC.png);
+}
+
+.center2{
     width: auto;
     height: auto;
     max-width: 1500px;
@@ -68,6 +88,14 @@ body{
 .restaurants-title{
     position: relative;
     text-align: center;
+
+
+    border:0;
+    border-bottom: 2px;
+    padding-bottom: 10px;
+    margin-top: 0;
+    border-style: solid;
+    border-color: white;
 }
 
 .restaurants-items{
@@ -80,10 +108,14 @@ body{
     width: 300px;
 
     border-radius: 15px;
-    border: 10px;
-    border-top: 45px;
+    border: 3px;
+    border-top: 40px;
     border-style: solid;
-    border-color: rgb(100, 100, 100);
+    border-color: rgb(70, 70, 70);
+
+    -webkit-box-shadow: 3px 4px 14px 0px rgba(0,0,0,0.75);
+    -moz-box-shadow: 3px 4px 14px 0px rgba(0,0,0,0.75);
+    box-shadow: 3px 4px 14px 0px rgba(0,0,0,0.75);
 
     transition: 0.2s ease-in-out;
     
@@ -102,16 +134,27 @@ body{
 .restaurants-name{
     position: relative;
     transform: translateY(-35px);
-    padding:0;
+    padding:0px;
+    padding-left: 10px;
     margin:0;
     border:0;
     font-size: 20px;
 }
 
 .restaurants-image{
-    width: 100%;
-    height: 100%;
-    transform: translateY(-30px);
+    width: 80%;
+    height: 80%;
+    transform: translateY(-22px);
+
+
+    border: 10px solid transparent;
+    padding: 15px 20px 15px 20px;
+
+    border-image-slice:183 193 193 193;
+    border-image-width:50px 50px 50px 50px;
+    border-image-outset:0px 0px 0px 0px;
+    border-image-repeat:stretch stretch;
+    border-image-source: url(https://i.imgur.com/weNqMvC.png);
 }
 
 
@@ -133,11 +176,67 @@ body{
 }
 
 .menu-image{
+    position: relative;
+    justify-self: center;
     width: 100%;
+    border: 10px solid transparent;
+    padding: 15px 20px 15px 20px;
+
+    border-image-slice:183 193 193 193;
+    border-image-width:50px 50px 50px 50px;
+    border-image-outset:0px 0px 0px 0px;
+    border-image-repeat:stretch stretch;
+    border-image-source: url(https://i.imgur.com/weNqMvC.png);
+
+    margin-left: -30px;
+
+
+}
+
+
+.single-menu-cont{
+    border: 10px solid transparent;
+    padding: 15px 20px 15px 20px;
+
+    border-image-slice:183 193 193 193;
+    border-image-width:50px 50px 50px 50px;
+    border-image-outset:0px 0px 0px 0px;
+    border-image-repeat:stretch stretch;
+    border-image-source: url(https://i.imgur.com/weNqMvC.png);
+    
+    margin: 15px 0px 15px 0px
 }
 
 .menu-title{
     position: relative;
     text-align: center;
-    font-size: 55px;
+    font-size: 50px;
+}
+
+.menu-title2{
+    position: relative;
+    text-align: center;
+    font-size: 35px;
+    border:0;
+    border-bottom: 2px;
+    padding-bottom: 10px;
+    margin-top: 0;
+    border-style: solid;
+    border-color: white;
+
+}
+
+.menu-item-text{
+    text-align: center;
+}
+
+
+.tooltip{
+    position: absolute;
+    opacity: 0;
+    z-index: 10;
+    border-radius: 5px;
+    background-color: rgb(73, 73, 73);
+    padding: 2px;
+    white-space: nowrap;
 }

@@ -28,7 +28,7 @@ async function insertData(data) {
                         
                         for (let i3 = 0; i3 < data[i].menus[i2].items.length; i3++){
                             const itemName = data[i].menus[i2].items[i3].name;
-                            const itemPrice = data[i].menus[i2].items[i3].price;
+                            const itemPrice = data[i].menus[i2].items[i3].price.toFixed(2);
 
                             //await models.MenuItem.sync({force:true}).then(async ()=>{
                                 const menuItem = await models.MenuItem.create({name:itemName, price:itemPrice, menuId: menuIdIndex});
