@@ -45,6 +45,18 @@ MenuItem.init({
 });
 
 
+class User extends Model{
+
+}
+User.init({
+    username: DataTypes.STRING,
+    password: DataTypes.STRING
+},{
+    sequelize,
+    timestamps: false
+});
+
+
 Restaurant.hasMany(Menu, {as: 'menus', foreignKey: 'restaurantId'})
 Menu.belongsTo(Restaurant, {foreignKey: 'restaurantId'})
 
@@ -53,4 +65,4 @@ Menu.hasMany(MenuItem, {as: 'items', foreignKey: 'menuId'});
 MenuItem.belongsTo(Menu, {foreignKey: 'menuId'});
 
 
-module.exports = { sequelize, DataTypes, Model, Restaurant, Menu, MenuItem }
+module.exports = { sequelize, DataTypes, Model, Restaurant, Menu, MenuItem, User }

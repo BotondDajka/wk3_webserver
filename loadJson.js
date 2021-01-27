@@ -40,6 +40,10 @@ async function insertData(data) {
             })
         })
     })
+
+    await models.User.sync({force:true}).then(async ()=>{
+        await models.User.create({username:"Admin", password:"Admin"})
+    })
 }
 
 
