@@ -1,21 +1,20 @@
 <div class="center2">
     <h1 class="menu-title">{{restaurant.name}}</h1>
     <div class="menu-cont">
-            <div class="menu-item">
+        <div class="menu-item">
+            <div>
+                <img class="menu-image" src="{{restaurant.image}}">
                 <div>
-                    <img class="menu-image" src="{{restaurant.image}}">
-                    <div>
-                        {{#each restaurant.menus}}
-                            <div class="single-menu-cont">
-                            <h2 class="menu-title2">{{this.title}}</h2>
-                            {{#each this.items}}
-                                <p class="menu-item-text">{{this.name}} <br><b>£{{this.price}}</b></p>
-                            {{/each}}
-                            </div>
+                    {{#each restaurant.menus}}
+                        <div class="single-menu-cont">
+                        <h2 class="menu-title2">{{this.title}}</h2>
+                        {{#each this.items}}
+                            <p class="menu-item-text">{{this.name}} <br><b>£{{this.price}}</b></p>
                         {{/each}}
-
-                    </div>
-                </div>          
-            </div>
+                        </div>
+                    {{/each}}
+                </div>
+            </div>          
+        </div>
     </div>
 </div>

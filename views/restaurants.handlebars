@@ -44,12 +44,14 @@
             if (state){
                 let tooltip = document.getElementById("tooltip");
                 let timer = setTimeout(()=>{
+                    tooltip.style.display = "block";
                     tooltip.style.opacity = 1;
                 }, 1000)
                 timers.push(timer);
             }
             else{
                 let tooltip = document.getElementById("tooltip");
+                tooltip.style.display = "none"
                 tooltip.style.opacity = 0;
                 timers.forEach((timer)=>{
                     clearTimeout(timer);
