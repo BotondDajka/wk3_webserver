@@ -56,6 +56,13 @@
 
                 document.getElementById("admin-delete-{{this.id}}").onclick = ()=>{
                     document.getElementById("flipcard{{this.id}}").classList.toggle("rotate");
+                    $.post( "/admin", { type: "delete", id: {{this.id}} }, function(response, responseText){
+                        if(responseText == "success"){
+                            $("#{{this.id}}").hide("explode",{pieces:10},300, function(){
+                                $("#{{this.id}}").remove();
+                            })
+                        }
+                    });
                 }   
 
                 document.getElementById("admin-delete-{{this.id}}").onpointerdown = ()=>{

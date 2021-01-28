@@ -70,15 +70,52 @@ app.get('/', async (request, response) => {
 
 
 
-app.get("/admin", async (request, response) => {
-    if (request.session.user && request.cookies.user_sid) {
+app.route("/admin")
+    .get(async (request, response) => {
+        if (request.session.user && request.cookies.user_sid) {
 
-        response.render("admin", {restaurants: await models.Restaurant.findAll(), layout: "loggedin"})
-    }
-    else{
-        response.redirect("/")
-    }
-})
+            response.render("admin", {restaurants: await models.Restaurant.findAll(), layout: "loggedin"})
+        }
+        else{
+            response.redirect(401, "/").end();
+        }
+    })
+    .post(async (request, response)=>{
+        console.log("post?")
+        console.log(request.body)
+        if (request.session.user && request.cookies.user_sid) {
+            if(request.body.type == "delete"){
+
+                await models.Restaurant.findOne({
+                    where:{
+                        id : request.body.id
+                    },
+                    include: [
+                        {model: models.Menu, as: 'menus', 
+                            include:[
+                                {model: models.MenuItem, as: 'items'},
+                            ]
+                    }],
+                }).then((restaurant)=>{
+                    console.log("rest destroyed!")
+                    restaurant.destroy();
+                    response.status(200).end();
+                })
+                .catch((err)=>{
+                    response.status(400).end();
+                })
+            
+            }
+            else{
+                response.redirect(400, "/").end();
+            }
+        
+        }
+        else{
+            response.redirect(401, "/").end();
+        }
+    });
+
 
 app.route("/login")
     .get((request, response)=>{
