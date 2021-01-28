@@ -70,9 +70,10 @@ app.get('/', async (request, response) => {
 
 
 
-app.get("/admin", (request, response) => {
+app.get("/admin", async (request, response) => {
     if (request.session.user && request.cookies.user_sid) {
-        response.render("admin", {layout: "loggedin"})
+
+        response.render("admin", {restaurants: await models.Restaurant.findAll(), layout: "loggedin"})
     }
     else{
         response.redirect("/")

@@ -1,1 +1,142 @@
-<h>You're logged in!</h>
+<div class="center">
+    <p class="restaurants-title"><span style="font-family: Verdana; font-size:30px">[ADMIN]</span> Restaurants <i class="fas fa-plus admin-add-button"></i></p>
+    
+    <div id="restaurants-cont" class="restaurants-cont">
+        
+        {{#each restaurants}}
+            <div id="{{this.id}}" class="admin-restaurants-items">
+                <div style="position: absolute;">
+                    <p class="restaurants-name">{{this.name}}</p>
+                    {{!-- <img class="restaurants-image" src="{{this.image}}"> --}}
+                </div> 
+
+                <div  class="flip-card">
+                    <div id="flipcard{{this.id}}" class="flip-card-inner">
+                        <div style="background-image: url({{this.image}});" class="flip-card-front">
+                        </div>
+                        <div class="flip-card-back">
+                            <div class="admin-button-container">
+                                <div id="admin-edit-{{this.id}}" class="admin-button">Edit</div>
+                                <div id="admin-delete-{{this.id}}" class="admin-button">Delete</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+
+            </div>
+            <script>
+
+
+                
+                
+                document.getElementById("{{this.id}}").onclick = ()=>{
+                    document.getElementById("flipcard{{this.id}}").classList.toggle("rotate");
+
+                    let restaurants = document.getElementsByClassName("flip-card-front");
+                    for (let i= 0; i < restaurants.length; i++){
+                        mouseOver(false, restaurants[i])
+                    }
+
+                }    
+
+                document.getElementById("admin-edit-{{this.id}}").onclick = ()=>{
+                    document.getElementById("flipcard{{this.id}}").classList.toggle("rotate");
+                }  
+
+                document.getElementById("admin-edit-{{this.id}}").onpointerdown = ()=>{
+                    document.getElementById("admin-edit-{{this.id}}").style.borderBottomWidth="1px";
+                    document.getElementById("admin-edit-{{this.id}}").style.transform = "translateY(+3px)";
+                }
+                document.getElementById("admin-edit-{{this.id}}").onpointerup = ()=>{
+                    document.getElementById("admin-edit-{{this.id}}").style.borderBottomWidth="4px";
+                    document.getElementById("admin-edit-{{this.id}}").style.transform = "translateY(-3px)";
+                }
+
+                document.getElementById("admin-delete-{{this.id}}").onclick = ()=>{
+                    document.getElementById("flipcard{{this.id}}").classList.toggle("rotate");
+                }   
+
+                document.getElementById("admin-delete-{{this.id}}").onpointerdown = ()=>{
+                    document.getElementById("admin-delete-{{this.id}}").style.borderBottomWidth="1px";
+                    document.getElementById("admin-delete-{{this.id}}").style.transform = "translateY(+3px)";
+                }
+                document.getElementById("admin-delete-{{this.id}}").onpointerup = ()=>{
+                    document.getElementById("admin-delete-{{this.id}}").style.borderBottomWidth="4px";
+                    document.getElementById("admin-delete-{{this.id}}").style.transform = "translateY(-3px)";
+                }
+
+
+
+            </script>
+            {{!-- <div class="restaurants-items">1</div>
+            <div class="restaurants-items">1</div>
+            <div class="restaurants-items">1</div>
+            <div class="restaurants-items">1</div>
+            <div class="restaurants-items">1</div> --}}
+        {{/each}}
+
+        
+    </div>
+
+    <div class="tooltip" id="tooltip">Click for options</div>
+
+
+    <script>
+        let timers = [];
+        let mouseX, mouseY;
+        window.onmousemove = (e) => {
+            mouseX = e.clientX;
+            mouseY = e.clientY;
+
+            let tooltip = document.getElementById("tooltip");
+            tooltip.style.top = (mouseY - 70 + window.scrollY)+ "px";
+            tooltip.style.left = (mouseX + 0) + "px";
+            
+
+        };
+
+        function mouseOver(state){
+            if (state){
+                let tooltip = document.getElementById("tooltip");
+                let timer = setTimeout(()=>{
+                    tooltip.style.display = "block";
+                    tooltip.style.opacity = 1;
+                }, 1000)
+                timers.push(timer);
+                
+            }
+            else{
+                let tooltip = document.getElementById("tooltip");
+                tooltip.style.display = "none"
+                tooltip.style.opacity = 0;
+                timers.forEach((timer)=>{
+                    clearTimeout(timer);
+                })
+            }
+        }
+
+        let restaurants = document.getElementsByClassName("flip-card-front");
+        for (let i= 0; i < restaurants.length; i++){
+            
+            restaurants[i].onmouseover = () =>{
+                mouseOver(true, restaurants[i])
+            }
+            restaurants[i].onmouseleave = () => {
+                mouseOver(false, restaurants[i])
+            }
+        }
+
+
+        $("#container").css('visibility', 'visible');
+        $("#container").hide();
+        $("#container").slideDown(800)
+    </script>
+</div>
+
+
+
+
+
+

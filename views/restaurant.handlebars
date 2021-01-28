@@ -1,5 +1,5 @@
 <div class="center2">
-    <h1 class="menu-title">{{restaurant.name}}</h1>
+    <p class="menu-title">{{restaurant.name}}</p>
     <div class="menu-cont">
         <div class="menu-item">
             <div>
@@ -7,7 +7,7 @@
                 <div>
                     {{#each restaurant.menus}}
                         <div class="single-menu-cont">
-                        <h2 class="menu-title2">{{this.title}}</h2>
+                        <p class="menu-title2">{{this.title}}</p>
                         {{#each this.items}}
                             <p class="menu-item-text">{{this.name}} <br><b>£{{this.price}}</b></p>
                         {{/each}}
@@ -18,3 +18,9 @@
         </div>
     </div>
 </div>
+
+<script>
+    $("#container").css('visibility', 'visible');
+    $("#container").hide();
+    $("#container").slideDown(800)
+</script>

@@ -1,16 +1,21 @@
 <div class="center">
-    <h1 class="restaurants-title">Restaurants</h1>
+    <p class="restaurants-title">Restaurants</p>
     <div id="restaurants-cont" class="restaurants-cont">
         {{#each restaurants}}
-            <div id="{{this.id}}" class="restaurants-items">
+            <div id="{{this.id}}" style="background-image: url({{this.image}});" class="restaurants-items">
                 <div>
                     <p class="restaurants-name">{{this.name}}</p>
-                    <img class="restaurants-image" src="{{this.image}}">
+                    {{!-- <img class="restaurants-image" src="{{this.image}}"> --}}
                 </div> 
             </div>
             <script>
+
+
+
                 document.getElementById("{{this.id}}").onclick = ()=>{
-                    window.location.href = '/restaurant/{{this.id}}'
+                    $("#container").slideUp(300, function(){
+                        window.location.href = '/restaurant/{{this.id}}'
+                    })
                 }    
             </script>
             {{!-- <div class="restaurants-items">1</div>
@@ -33,8 +38,8 @@
             mouseY = e.clientY;
 
             let tooltip = document.getElementById("tooltip");
-                tooltip.style.top = (mouseY - 50 + window.scrollY)+ "px";
-                tooltip.style.left = (mouseX + 10) + "px";
+                tooltip.style.top = (mouseY - 70 + window.scrollY)+ "px";
+                tooltip.style.left = (mouseX + 0) + "px";
             
         };
 
@@ -69,5 +74,9 @@
                 mouseOver(false)
             }
         }
+
+        $("#container").css('visibility', 'visible');
+        $("#container").hide();
+        $("#container").slideDown(800)
     </script>
 </div>
