@@ -10,7 +10,6 @@ const session = require('express-session');
 const bodyParser = require('body-parser');
 
 
-
 const models = require("./models");
 const { request, response } = require("express");
 
@@ -60,10 +59,10 @@ app.use((request, response, next)=>{
 
 app.get('/', async (request, response) => {
     if (request.session.user && request.cookies.user_sid) {
-        response.render('restaurants', {restaurants: await models.Restaurant.findAll(), title:"Home | Restaurants", layout: "loggedin"})
+        response.render('restaurants', {restaurants: await models.Restaurant.findAll(), title:"Home | Restaurants", icon:"mainIcon.ico", layout: "loggedin"})
     }
     else{
-        response.render('restaurants', {restaurants: await models.Restaurant.findAll(), title:"Home | Restaurants"})
+        response.render('restaurants', {restaurants: await models.Restaurant.findAll(), icon:"mainIcon.ico", title:"Home | Restaurants"})
     }
     
 })
@@ -74,7 +73,7 @@ app.route("/admin")
     .get(async (request, response) => {
         if (request.session.user && request.cookies.user_sid) {
 
-            response.render("admin", {restaurants: await models.Restaurant.findAll(), layout: "loggedin"})
+            response.render("admin", {restaurants: await models.Restaurant.findAll(), title:"Admin | Restaurants", icon:"adminIcon.ico", layout: "loggedin"})
         }
         else{
             response.redirect(401, "/").end();
@@ -104,7 +103,6 @@ app.route("/admin")
                 .catch((err)=>{
                     response.status(400).end();
                 })
-            
             }
             else{
                 response.redirect(400, "/").end();
@@ -115,6 +113,36 @@ app.route("/admin")
             response.redirect(401, "/").end();
         }
     });
+
+    app.get('/edit/:restaurantId', async (request, response) => {
+        if (request.session.user && request.cookies.user_sid) {
+            await models.Restaurant.findOne({
+                where:{
+                    id : request.params.restaurantId
+                },
+                include: [
+                    {model: models.Menu, as: 'menus', 
+                        include:[
+                            {model: models.MenuItem, as: 'items'},
+                        ]
+                }],
+            }).then((restaurant)=>{
+                response.render('edit', {title:`${restaurant.name}| Restaurants`, restaurant: restaurant, icon:"mainIcon.ico", layout: "loggedin"})
+            })
+            .catch((error)=>{
+                response.status(404).render('notfound', {title:"Error 404 | Page not found", icon:"mainIcon.ico", layout: "notfound"})
+            });
+        }
+        else{
+            response.redirect(401, "/").end();
+        }
+
+
+
+
+        
+    })
+    
 
 
 app.route("/login")
@@ -162,10 +190,10 @@ app.get("/logout", (request, response) => {
 
 app.get('/about', (request, response) => {
     if (request.session.user && request.cookies.user_sid) {
-        response.render('about', {title:"About | Restaurants", layout: "loggedin"})
+        response.render('about', {title:"About | Restaurants", icon:"mainIcon.ico", layout: "loggedin"})
     }
     else{
-        response.render('about', {title:"About | Restaurants"})
+        response.render('about', {title:"About | Restaurants", icon:"mainIcon.ico",})
     }
 })
 
@@ -183,15 +211,15 @@ app.get('/restaurant/:restaurantId', async (request, response) => {
     }).then((restaurant)=>{
         //console.log(restaurant.menus[0].items[1]);
         if (request.session.user && request.cookies.user_sid) {
-            response.render('restaurant', {title:`${restaurant.name}| Restaurants`, restaurant: restaurant, layout: "loggedin"})
+            response.render('restaurant', {title:`${restaurant.name}| Restaurants`, restaurant: restaurant, icon:"mainIcon.ico", layout: "loggedin"})
         }
         else{
-            response.render('restaurant', {title:`${restaurant.name}| Restaurants`, restaurant: restaurant})
+            response.render('restaurant', {title:`${restaurant.name}| Restaurants`, icon:"mainIcon.ico", restaurant: restaurant})
         }
         //response.json(restaurant)
     })
     .catch((error)=>{
-        response.status(404).render('notfound', {title:"Error 404 | Page not found", layout: "notfound"})
+        response.status(404).render('notfound', {title:"Error 404 | Page not found", icon:"mainIcon.ico", layout: "notfound"})
     });
 })
 
@@ -212,7 +240,7 @@ app.get('/rest/restaurant/:restaurantId', async (request, response) => {
         response.json(restaurant)
     })
     .catch((error)=>{
-        response.status(404).render('notfound', {title:"Error 404 | Page not found", layout: "notfound"})
+        response.status(404).render('notfound', {title:"Error 404 | Page not found", icon:"mainIcon.ico", layout: "notfound"})
     });
 })
 
@@ -221,7 +249,7 @@ app.get('/rest/restaurant/:restaurantId', async (request, response) => {
 
 
 app.use((request, response, next)=>{
-    response.status(404).render('notfound', {title:"Error 404 | Page not found", layout: "notfound"})
+    response.status(404).render('notfound', {title:"Error 404 | Page not found", icon:"mainIcon.ico", layout: "notfound"})
 })
 
 app.listen(port, ()=>{

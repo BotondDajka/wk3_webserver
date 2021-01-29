@@ -451,3 +451,17 @@ body::-webkit-scrollbar-thumb
     color: rgb(139, 139, 139);
 }
 
+
+
+.edit-pencil-button{
+    position: absolute;
+    color: orange;
+    font-size: 40px;
+    right: 10px;
+}
+
+
+.edit-pencil-button:hover{
+    cursor: pointer;
+    color:rgb(148, 100, 10);
+}

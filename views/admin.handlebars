@@ -43,6 +43,10 @@
 
                 document.getElementById("admin-edit-{{this.id}}").onclick = ()=>{
                     document.getElementById("flipcard{{this.id}}").classList.toggle("rotate");
+
+                    $("#container").slideUp(300, function(){
+                        window.location.href = '/edit/{{this.id}}' 
+                    })
                 }  
 
                 document.getElementById("admin-edit-{{this.id}}").onpointerdown = ()=>{

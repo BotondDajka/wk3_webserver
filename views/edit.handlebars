@@ -1,0 +1,68 @@
+<div class="center2">
+    <p style="font-family: Verdana;" class="menu-title">[EDIT MODE]</p>
+    <p id="menuTitle" class="menu-title">{{restaurant.name}}<i id="menuTitleEdit" class="fas fa-pencil-alt edit-pencil-button"></i></p> 
+    
+    <div class="menu-cont">
+        <div class="menu-item">
+            <div>
+                <i id="menuTitleEdit" class="fas fa-pencil-alt edit-pencil-button"></i>
+                <img class="menu-image" src="{{restaurant.image}}">
+                
+                <div>
+                    {{#each restaurant.menus}}
+                        <div class="single-menu-cont">
+                        <p class="menu-title2">{{this.title}}</p>
+                        {{#each this.items}}
+                            <p class="menu-item-text">{{this.name}} <br><b>£{{this.price}}</b></p>
+                        {{/each}}
+                        </div>
+                    {{/each}}
+                </div>
+            </div>          
+        </div>
+    </div>
+</div>
+
+<script>
+    document.getElementById("menuTitleEdit").onclick = ()=>{
+        const edit = document.getElementById("menuTitleEdit")
+        edit.remove();
+
+
+        const title = document.getElementById("menuTitle")
+
+        let menuEditBox = document.createElement("input")
+        menuEditBox.id = "menuEditBox"
+        menuEditBox.className = "menu-title"
+
+        menuEditBox.value = title.innerHTML
+
+        $("#menuTitle").hide();
+
+
+        title.parentNode.insertBefore(menuEditBox, title.nextSibling);
+
+        menuEditBox.focus();
+
+        menuEditBox.addEventListener('focusout', (event) => {
+            if (!(menuEditBox.value.replace(" ", "") == "")){
+                title.innerHTML = menuEditBox.value
+                title.append(edit)
+                menuEditBox.remove()
+                $("#menuTitle").show();
+            }
+            else{
+                alert("Title can't be left empty")
+                menuEditBox.focus()
+            }    
+        });
+    }  
+
+
+
+
+
+    $("#container").css('visibility', 'visible');
+    $("#container").hide();
+    $("#container").slideDown(800)
+</script>
