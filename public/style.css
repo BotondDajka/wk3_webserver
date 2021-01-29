@@ -280,6 +280,8 @@ body::-webkit-scrollbar-thumb
     margin: 30px 0px 30px 0px ;
     font-family: "Silent Landfield", "Silent Landfield";
     font-style: normal;
+
+    width: 100%;
 }
 
 .menu-title2{
@@ -297,6 +299,7 @@ body::-webkit-scrollbar-thumb
     font-style: normal;
     font-size: 50px;
 
+    width: 100%;
 }
 
 .menu-item-text{
@@ -478,3 +481,13 @@ body::-webkit-scrollbar-thumb
     color:rgb(160, 160, 160);
 }
 
+.edit-remove-item{
+    color:rgb(245, 63, 63);
+    font-size: 30px;
+    margin-right: 5px;
+    margin-left: -5px;
+}
+
+.edit-remove-item:hover{
+    color: rgb(175, 71, 71);
+}

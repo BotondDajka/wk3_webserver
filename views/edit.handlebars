@@ -52,12 +52,16 @@
 
 
                             {{#each this.items}}
-                                <p id="menuItemName{{this.id}}" class="menu-item-text">{{this.name}}<i id="menuItem2Edit{{this.id}}" class="fas fa-pencil-alt edit-pencil-button"></i></p>
+                                
+                                <p id="menuItemName{{this.id}}" class="menu-item-text"><i id="menuItem2Remove{{this.id}}" class="fas fa-times edit-remove-item"></i>{{this.name}}<i id="menuItem2Edit{{this.id}}" class="fas fa-pencil-alt edit-pencil-button"></i></p>
                                 <p id="menuItemPrice{{this.id}}" class="menu-item-text">£{{this.price}}</p>
                                 <script>
                                     document.getElementById("menuItem2Edit{{this.id}}").onclick = ()=>{
                                         const edit = document.getElementById("menuItem2Edit{{this.id}}")
                                         edit.remove();
+
+                                        const remove = document.getElementById("menuItem2Remove{{this.id}}")
+                                        remove.remove();
 
                                         const itemName = document.getElementById("menuItemName{{this.id}}");
                                         const itemPrice = document.getElementById("menuItemPrice{{this.id}}");
@@ -102,7 +106,9 @@
 
                                         itemPriceEditBox.addEventListener('focusout', (event) => {
                                             if (!(itemPriceEditBox.value.replace(" ", "") == "")){
-                                                itemName.innerHTML = itemNameEditBox.value
+                                                itemName.innerHTML = ""
+                                                itemName.append(remove);
+                                                itemName.innerHTML =  itemName.innerHTML + itemNameEditBox.value
                                                 itemPrice.innerHTML = itemPriceEditBox.value
 
                                                 itemName.append(edit)
@@ -119,6 +125,13 @@
                                             }    
                                         });
                                     }
+
+                                    document.getElementById("menuItem2Remove{{this.id}}").onclick = ()=>{
+                                        document.getElementById("menuItemName{{this.id}}").remove()
+                                        document.getElementById("menuItemPrice{{this.id}}").remove()
+                                    }
+                                
+                                
                                 </script>
                             
                             
@@ -126,12 +139,19 @@
                             <i id="addItem{{this.id}}Button" class="fas fa-plus edit-add-item"></i>   
                             <script>
                                 document.getElementById("addItem{{this.id}}Button").onclick = ()=>{
+                                    
                                     const addItemButton = document.getElementById("addItem{{this.id}}Button");
                                     addItemButton.remove();
 
+                                    const removeButton = document.createElement("i")
+                                    removeButton.className = "fas fa-times edit-remove-item"
 
                                     const itemName = document.createElement("p")
                                     const itemPrice = document.createElement("p");
+
+
+
+                                    itemName.append(removeButton);
 
                                     itemName.className = "menu-item-text"
                                     itemPrice.className = "menu-item-text"
@@ -149,6 +169,9 @@
                                     
                                     const editPencilFunc = ()=>{
                                         editPencil.remove();
+                                        if(itemName.innerHTML != ""){
+                                            itemName.removeChild(itemName.childNodes[0]);
+                                        }
 
                                         let itemNameEditBox = document.createElement("input")
                                         
@@ -190,7 +213,9 @@
 
                                         itemPriceEditBox.addEventListener('focusout', (event) => {
                                             if (!(itemPriceEditBox.value.replace(" ", "") == "")){
-                                                itemName.innerHTML = itemNameEditBox.value
+                                                itemName.innerHTML = ""
+                                                itemName.append(removeButton);
+                                                itemName.innerHTML =  itemName.innerHTML + itemNameEditBox.value
                                                 itemPrice.innerHTML = itemPriceEditBox.value
 
                                                 itemName.append(editPencil)
@@ -220,7 +245,7 @@
                                     editPencilFunc();
 
                                     
-                                }
+                                }                            
                             </script>
                             
                         </div>
