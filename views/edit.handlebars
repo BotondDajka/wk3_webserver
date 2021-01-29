@@ -5,16 +5,224 @@
     <div class="menu-cont">
         <div class="menu-item">
             <div>
-                <i id="menuTitleEdit" class="fas fa-pencil-alt edit-pencil-button"></i>
-                <img class="menu-image" src="{{restaurant.image}}">
+                <i id="menuImageEdit" class="fas fa-pencil-alt edit-pencil-button"></i>
+                <img id="menuImg" class="menu-image" src="{{restaurant.image}}">
                 
                 <div>
                     {{#each restaurant.menus}}
-                        <div class="single-menu-cont">
-                        <p class="menu-title2">{{this.title}}</p>
-                        {{#each this.items}}
-                            <p class="menu-item-text">{{this.name}} <br><b>£{{this.price}}</b></p>
-                        {{/each}}
+                        <div id = "menuContainer{{this.id}}" class="single-menu-cont">
+                            <p id="menu-title2{{this.id}}" class="menu-title2">{{this.title}} <i id="menuTitle2Edit{{this.id}}" class="fas fa-pencil-alt edit-pencil-button"></i></p>
+
+                            <script>
+                                document.getElementById("menuTitle2Edit{{this.id}}").onclick = ()=>{
+                                    const edit = document.getElementById("menuTitle2Edit{{this.id}}")
+                                    edit.remove();
+
+                                    const title = document.getElementById("menu-title2{{this.id}}")
+
+                                    let menuEditBox = document.createElement("input")
+                                    menuEditBox.id = "menuEditBox"
+                                    menuEditBox.className = "menu-title2"
+
+                                    menuEditBox.width = "100%"
+
+                                    menuEditBox.value = title.innerHTML
+
+                                    $("#menu-title2{{this.id}}").hide();
+
+
+                                    title.parentNode.insertBefore(menuEditBox, title.nextSibling);
+
+                                    menuEditBox.focus();
+
+                                    menuEditBox.addEventListener('focusout', (event) => {
+                                        if (!(menuEditBox.value.replace(" ", "") == "")){
+                                            title.innerHTML = menuEditBox.value
+                                            title.append(edit)
+                                            menuEditBox.remove()
+                                            $("#menu-title2{{this.id}}").show();
+                                        }
+                                        else{
+                                            alert("Title can't be left empty")
+                                            menuEditBox.focus()
+                                        }    
+                                    });
+                                }  
+                            </script>
+
+
+                            {{#each this.items}}
+                                <p id="menuItemName{{this.id}}" class="menu-item-text">{{this.name}}<i id="menuItem2Edit{{this.id}}" class="fas fa-pencil-alt edit-pencil-button"></i></p>
+                                <p id="menuItemPrice{{this.id}}" class="menu-item-text">£{{this.price}}</p>
+                                <script>
+                                    document.getElementById("menuItem2Edit{{this.id}}").onclick = ()=>{
+                                        const edit = document.getElementById("menuItem2Edit{{this.id}}")
+                                        edit.remove();
+
+                                        const itemName = document.getElementById("menuItemName{{this.id}}");
+                                        const itemPrice = document.getElementById("menuItemPrice{{this.id}}");
+
+                                        let itemNameEditBox = document.createElement("input")
+                                        
+                                        itemNameEditBox.id = "menuItemNameEditBox{{this.id}}"
+                                        
+                                        itemNameEditBox.className = "menu-item-text"
+                                        itemNameEditBox.style.width = "100%";
+                                        itemNameEditBox.value = itemName.innerHTML
+                                        
+
+                                        $("#menuItemName{{this.id}}").hide();
+
+                                        itemName.parentNode.insertBefore(itemNameEditBox, itemName.nextSibling);
+
+
+                                        let itemPriceEditBox = document.createElement("input")
+                                        itemPriceEditBox.id = "menuItemPriceEditBox{{this.id}}"
+
+                                        itemPriceEditBox.className = "menu-item-text"
+                                        itemPriceEditBox.style.width = "100%";
+                                        itemPriceEditBox.value = itemPrice.innerHTML
+
+                                        $("#menuItemPrice{{this.id}}").hide();
+
+                                        itemPrice.parentNode.insertBefore(itemPriceEditBox, itemPrice.nextSibling);
+                                        
+                                        itemNameEditBox.focus();
+
+                                        itemNameEditBox.addEventListener('focusout', (event) => {
+                                            if (!(itemNameEditBox.value.replace(" ", "") == "")){
+                                                itemPriceEditBox.focus();
+
+                                            }
+                                            else{
+                                                alert("Item name can't be empty!")
+                                                itemNameEditBox.focus();
+                                            }    
+                                        });
+
+                                        itemPriceEditBox.addEventListener('focusout', (event) => {
+                                            if (!(itemPriceEditBox.value.replace(" ", "") == "")){
+                                                itemName.innerHTML = itemNameEditBox.value
+                                                itemPrice.innerHTML = itemPriceEditBox.value
+
+                                                itemName.append(edit)
+                                                itemNameEditBox.remove()
+                                                itemPriceEditBox.remove()
+
+                                                $("#menuItemName{{this.id}}").show();
+                                                $("#menuItemPrice{{this.id}}").show();
+
+                                            }
+                                            else{
+                                                alert("Item price can't be empty!")
+                                                itemPriceEditBox.focus();
+                                            }    
+                                        });
+                                    }
+                                </script>
+                            
+                            
+                            {{/each}}
+                            <i id="addItem{{this.id}}Button" class="fas fa-plus edit-add-item"></i>   
+                            <script>
+                                document.getElementById("addItem{{this.id}}Button").onclick = ()=>{
+                                    const addItemButton = document.getElementById("addItem{{this.id}}Button");
+                                    addItemButton.remove();
+
+
+                                    const itemName = document.createElement("p")
+                                    const itemPrice = document.createElement("p");
+
+                                    itemName.className = "menu-item-text"
+                                    itemPrice.className = "menu-item-text"
+
+                                    itemName.innerHTML = ""
+                                    itemPrice.innerHTML = ""
+
+                                    const editPencil = document.createElement("i")
+                                    editPencil.className = "fas fa-pencil-alt edit-pencil-button"
+
+
+                                    itemName.append(editPencil)
+
+                                    
+                                    
+                                    const editPencilFunc = ()=>{
+                                        editPencil.remove();
+
+                                        let itemNameEditBox = document.createElement("input")
+                                        
+                                        itemNameEditBox.className = "menu-item-text"
+                                        itemNameEditBox.style.width = "100%";
+                                        itemNameEditBox.placeholder = "Item Name"
+
+                                        $(itemName).hide();
+
+                                        itemName.parentNode.insertBefore(itemNameEditBox, itemName.nextSibling);
+
+
+                                        let itemPriceEditBox = document.createElement("input")
+                                        itemPriceEditBox.id = "menuItemPriceEditBox{{this.id}}"
+
+                                        itemPriceEditBox.className = "menu-item-text"
+                                        itemPriceEditBox.style.width = "100%";
+                                        itemPriceEditBox.placeholder = "Item Price"
+
+                                        $(itemPrice).hide();
+
+                                        itemPrice.parentNode.insertBefore(itemPriceEditBox, itemPrice.nextSibling);
+                                        
+                                        itemNameEditBox.value = itemName.innerHTML
+                                        itemPriceEditBox.value = itemPrice.innerHTML
+
+                                        itemNameEditBox.focus();
+
+                                        itemNameEditBox.addEventListener('focusout', (event) => {
+                                            if (!(itemNameEditBox.value.replace(" ", "") == "")){
+                                                itemPriceEditBox.focus();
+
+                                            }
+                                            else{
+                                                alert("Item name can't be empty!")
+                                                itemNameEditBox.focus();
+                                            }    
+                                        });
+
+                                        itemPriceEditBox.addEventListener('focusout', (event) => {
+                                            if (!(itemPriceEditBox.value.replace(" ", "") == "")){
+                                                itemName.innerHTML = itemNameEditBox.value
+                                                itemPrice.innerHTML = itemPriceEditBox.value
+
+                                                itemName.append(editPencil)
+                                                itemNameEditBox.remove()
+                                                itemPriceEditBox.remove()
+
+                                                $(itemName).show();
+                                                $(itemPrice).show();
+
+                                            }
+                                            else{
+                                                alert("Item price can't be empty!")
+                                                itemPriceEditBox.focus();
+                                            }    
+                                        });
+
+                                    }
+                                    
+                                    editPencil.onclick = editPencilFunc
+
+                                    
+
+                                    $("#menuContainer{{this.id}}").append(itemName)
+                                    $("#menuContainer{{this.id}}").append(itemPrice)
+                                    $("#menuContainer{{this.id}}").append(addItemButton)
+
+                                    editPencilFunc();
+
+                                    
+                                }
+                            </script>
+                            
                         </div>
                     {{/each}}
                 </div>
@@ -34,6 +242,8 @@
         let menuEditBox = document.createElement("input")
         menuEditBox.id = "menuEditBox"
         menuEditBox.className = "menu-title"
+
+        menuEditBox.width = "100%"
 
         menuEditBox.value = title.innerHTML
 
@@ -58,7 +268,37 @@
         });
     }  
 
+    document.getElementById("menuImageEdit").onclick = ()=>{
 
+        const edit = document.getElementById("menuImageEdit")
+
+
+        let menuEditBox = document.createElement("input")
+        menuEditBox.id = "menuEditBox"
+        menuEditBox.className = "menu-image"
+        edit.parentNode.insertBefore(menuEditBox, edit.nextSibling);
+
+        $("#menuImageEdit").hide()
+
+
+        menuEditBox.value = document.getElementById("menuImg").src
+
+        menuEditBox.focus();
+
+        menuEditBox.addEventListener('focusout', (event) => {
+            if (!(menuEditBox.value.replace(" ", "") == "")){
+                const img = document.getElementById("menuImg")
+
+                img.src = menuEditBox.value
+                menuEditBox.remove()
+                $("#menuImageEdit").show()
+            }
+            else{
+                alert("Image source can't be left empty")
+                menuEditBox.focus()
+            }    
+        });
+    }
 
 
 

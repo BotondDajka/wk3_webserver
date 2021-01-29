@@ -465,3 +465,16 @@ body::-webkit-scrollbar-thumb
     cursor: pointer;
     color:rgb(148, 100, 10);
 }
+
+
+.edit-add-item {
+    position: relative;
+    font-size: 30px;
+    margin-left: 94%;
+}
+
+.edit-add-item:hover{
+    cursor: pointer;
+    color:rgb(160, 160, 160);
+}
+
