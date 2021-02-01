@@ -1,7 +1,6 @@
 <div class="center2">
     <p style="font-family: Verdana;" class="menu-title">[EDIT MODE]</p>
     <p id="menuTitle" class="menu-title">{{restaurant.name}}<i id="menuTitleEdit" class="fas fa-pencil-alt edit-pencil-button"></i></p> 
-    
     <div class="menu-cont">
         <div class="menu-item">
             <div>
@@ -254,6 +253,66 @@
             </div>          
         </div>
     </div>
+    <div id="saveButton" class="admin-button">Save</div>
+
+    <script>
+        document.getElementById("saveButton").onpointerdown = ()=>{
+            document.getElementById("saveButton").style.borderBottomWidth="1px";
+            document.getElementById("saveButton").style.transform = "translateY(+3px)";
+        }
+        document.getElementById("saveButton").onpointerup = ()=>{
+            document.getElementById("saveButton").style.borderBottomWidth="4px";
+            document.getElementById("saveButton").style.transform = "translateY(-3px)";
+        }
+
+
+        document.getElementById("saveButton").onclick = ()=>{
+            
+            let restaurant = {};
+
+            restaurant.name = document.getElementById("menuTitle").textContent
+
+            console.log("Rest Name: "+document.getElementById("menuTitle").textContent)
+            console.log("Img: "+document.getElementById("menuImg").src)
+
+            restaurant.img = document.getElementById("menuImg").src
+
+            let menusTitle = document.getElementsByClassName("menu-title2")
+            let menus = document.getElementsByClassName("single-menu-cont")
+
+            restaurant.menus = []
+
+            for (let i= 0; i < menus.length; i++){
+                console.log(">>>>"+menusTitle[i].textContent)
+                let menu = []
+
+                
+                let menuItemsInMenu = menus[i].getElementsByClassName("menu-item-text")
+
+                let menuItems = []
+                for (let i2 = 0; i2 < menuItemsInMenu.length; i2+=2){
+                    //console.log(menuItemsInMenu[i2].textContent)
+                    menuItems.push(menuItemsInMenu[i2].textContent)
+                }
+
+                let menuPrice = []
+                for (let i2 = 1; i2 < menuItemsInMenu.length; i2+=2){
+                    //console.log(menuItemsInMenu[i2].textContent)
+                    menuPrice.push(menuItemsInMenu[i2].textContent)
+                }
+
+                for (let i2 = 0; i2 < menuItems.length; i2++){
+                    menu.push({name: menuItems[i2], price: menuPrice[i2]})
+                }
+                
+
+                restaurant.menus.push({title: menusTitle[i].textContent, menu:menu})
+            }
+            console.log(restaurant)
+        }
+
+
+    </script>
 </div>
 
 <script>

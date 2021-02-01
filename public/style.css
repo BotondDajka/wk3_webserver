@@ -14,6 +14,12 @@
 }
 
 
+*{
+    margin:0;
+    border:0;
+    padding:0;
+
+}
 
 
 .navbar-cont{
@@ -307,6 +313,8 @@ body::-webkit-scrollbar-thumb
 
     font-family: "Menulis", "Menulis";
     font-size: 20px;
+    margin-top: 10px;
+    margin-bottom: 10px;
 }
 
 
@@ -406,12 +414,14 @@ body::-webkit-scrollbar-thumb
 }
 
 .admin-button-container{
+    
     width: 100%;
     display: flex;
     justify-content: space-evenly;
 }
 
 .admin-button{
+    cursor: pointer;
     
     height: 40px;
     padding-left: 15px;

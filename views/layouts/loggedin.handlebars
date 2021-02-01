@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
     <title>{{title}}</title>
     <head>
         <link rel="stylesheet" href="http://localhost:3000/style.css"/>
@@ -11,16 +11,17 @@
         <link rel="icon" href="/{{icon}}">
 
         <script src="https://code.jquery.com/ui/1.12.0/jquery-ui.min.js" integrity="sha256-eGE6blurk5sHj+rmkfsGYeKyZx3M4bG+ZlFyA7Kns7E=" crossorigin="anonymous"></script>
-
-
-        <div id="navbar" class="navbar-cont"> 
-            <div id="homeButton" class="navbar-button">Home</div>
-            <div id="aboutButton" class="navbar-button">About</div>
-            <div id="adminButton" class="navbar-button">Admin</div>
-            <div id="logoutButton" class="navbar-button">Logout</div>
-        </div>
     </head>
     <body>
+        <header>
+            <div id="navbar" class="navbar-cont"> 
+                <div id="homeButton" class="navbar-button">Home</div>
+                <div id="aboutButton" class="navbar-button">About</div>
+                <div id="adminButton" class="navbar-button">Admin</div>
+                <div id="logoutButton" class="navbar-button">Logout</div>
+            </div>
+        </header>
+
         <div id="container" class="container">    
             {{{body}}}
         </div>
